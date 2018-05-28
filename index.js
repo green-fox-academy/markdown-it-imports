@@ -22,4 +22,5 @@ function parser(match, utils) {
   ].join('');
 }
 
+console.log('ok');
 module.exports = regexp(/@(\w+)/, parser);
