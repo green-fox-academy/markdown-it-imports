@@ -1,26 +1,21 @@
-var regexp = require('markdown-it-regexp');
+var md = require('markdown-it')();
+var Plugin = require('markdown-it-regexp');
 
-function _parseURL(username) {
-  return 'https://twitter.com/@' + username;
-}
+var plugin = Plugin(
+  // regexp to match
+  /^@import\(\w+\.md\)$/,
+  // this function will be called when something matches
+  function(match, utils) {
+    var url = 'http://example.org/u/' + match[0]
 
-function parser(match, utils) {
-  var config = this.options;
+    return '<a href="' + utils.escape(url) + '">'
+         + utils.escape(match[0])
+         + '</a>'
+  }
+)
 
-  var parseURL = config.parseURL || _parseURL;
+md.use(plugin)
 
-  var url = parseURL(match[1]);
+var res = md.render("@import(ndsajdnasjdinasd.md)")
 
-  return [
-    '<a href="',
-    utils.escape(url),
-    '" target="',
-    config.external ? '_blank' : '_self',
-    '">@',
-    match[1],
-    '</a>'
-  ].join('');
-}
-
-console.log('ok');
-module.exports = regexp(/@(\w+)/, parser);
+console.log(res);

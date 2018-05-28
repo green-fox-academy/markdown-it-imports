@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/green-fox-academy/markdown-it-imports#readme",
   "dependencies": {
+    "markdown-it": "^8.4.1",
     "markdown-it-regexp": "^0.4.0"
   }
 }
