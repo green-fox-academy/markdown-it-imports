@@ -20,7 +20,7 @@ var plugin = Plugin(
   /^@import\(.+\.md\)$/,
   // this function will be called when something matches
   function(match) {
-    let importedString = fs.readFileSync(match[0].slice(8, -1), 'utf8');
+    let importedString = readMdFile(`${match[0].slice(8, -1)}`);
     return importedString
   }
 )
