@@ -4,7 +4,16 @@ const fs = require('fs');
 const md = require('markdown-it')();
 const Plugin = require('markdown-it-regexp');
 
-const mainFileString = fs.readFileSync('mainfile.md', 'utf8');
+function readMdFile(filename) {
+  try {
+    return fs.readFileSync(filename, 'utf-8');
+  }
+  catch (err) {
+    console.log(`Read failed: ${err}`);
+  }
+};
+
+const mainFileString = readMdFile('mainfile.md');
 
 var plugin = Plugin(
   // regexp to match
