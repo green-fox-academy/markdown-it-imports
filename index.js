@@ -1,8 +1,5 @@
-'use strict';
-
-const fs = require('fs');
-const md = require('markdown-it')();
 const Plugin = require('markdown-it-regexp');
+const fs = require('fs');
 
 function readMdFile(filename) {
   try {
@@ -13,19 +10,12 @@ function readMdFile(filename) {
   }
 };
 
-const mainFileString = readMdFile('mainfile.md');
-
 var plugin = Plugin(
-  // regexp to match
-  /^@import\(.+\.md\)$/,
-  // this function will be called when something matches
+  /^@import\((.+\.md)\)$/,
   function(match) {
-    let importedString = readMdFile(`${match[0].slice(8, -1)}`);
+    let importedString = readMdFile(`${match[1]}`);
     return importedString
   }
 )
 
-md.use(plugin)
-
-var res = md.render(mainFileString)
-console.log(res);
+module.exports = plugin;

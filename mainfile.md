@@ -2,7 +2,7 @@
 
 @import(somefile.md)
 
-### Bello Hello
+### Bello hello
 
 @import(otherfile.md)
 
