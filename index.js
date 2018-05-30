@@ -1,3 +1,5 @@
+'use strict';
+
 const Plugin = require('markdown-it-regexp');
 const fs = require('fs');
 
