@@ -1,23 +1,12 @@
 'use strict';
 
-const Plugin = require('markdown-it-regexp');
+const regexp = require('markdown-it-regexp');
+const markdown = require('markdown-it');
+
 const fs = require('fs');
 
-function readMdFile(filename) {
-  try {
-    return fs.readFileSync(filename, 'utf-8');
-  }
-  catch (err) {
-    console.log(`Read failed: ${err}`);
-  }
+const importer = (match) => {
+  return markdown().render(fs.readFileSync(match[1], 'utf-8'));
 };
 
-var plugin = Plugin(
-  /^@import\((.+\.md)\)$/,
-  function(match) {
-    let importedString = readMdFile(`${match[1]}`);
-    return importedString
-  }
-)
-
-module.exports = plugin;
+module.exports = regexp(/^@import\((.+\.md)\)$/, importer);
